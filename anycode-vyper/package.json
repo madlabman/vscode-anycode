@@ -1,0 +1,44 @@
+{
+	"name": "anycode-vyper",
+	"publisher": "madlabman",
+	"displayName": "anycode-vyper",
+	"description": "Vyper for Anycode",
+	"license": "MIT",
+	"version": "0.1.0",
+	"preview": true,
+	"repository": {
+		"url": "https://github.com/madlabman/vscode-anycode"
+	},
+	"engines": {
+		"vscode": "^1.67.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"contributes": {
+		"anycodeLanguages": {
+			"grammarPath": "./tree-sitter-vyper.wasm",
+			"languageId": "vyper",
+			"extensions": [
+                "vy"
+			],
+			"queryPaths": {
+				"comments": "./queries/comments.scm",
+				"identifiers": "./queries/identifiers.scm",
+				"locals": "./queries/locals.scm",
+				"outline": "./queries/outline.scm",
+				"references": "./queries/references.scm"
+			}
+		}
+	},
+	"scripts": {
+		"postinstall": "npx tree-sitter build-wasm node_modules/tree-sitter-vyper",
+		"deploy": "npx vsce publish",
+		"test": "node ../anycode/server/src/common/test-fixture/test.js  --outline ./fixtures/outline.ts --highlights ./fixtures/highlights.ts --debug"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.14.1",
+		"tree-sitter-cli": "0.20.6",
+		"tree-sitter-vyper": "0.1.0"
+	}
+}
